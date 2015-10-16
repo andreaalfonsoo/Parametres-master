@@ -24,6 +24,7 @@ public class Principal extends Activity {
     Switch switch1;
     RatingBar ratingBar;
     SeekBar seekBar;
+    TextView valoracio;
 
     final int SUBACTIVITY_1=1;
 
@@ -39,6 +40,9 @@ public class Principal extends Activity {
         switch1 = (Switch) findViewById(R.id.switch1);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
+        valoracio = (TextView) findViewById(R.id.tv_numeracio);
+
+
 
         //Afegim un Listener al botó
         botoEnviaDades.setOnClickListener(new View.OnClickListener() {
@@ -54,28 +58,35 @@ public class Principal extends Activity {
                     // Afegim el paràmetre SEXE
                     switch (radioGroupSexe.getCheckedRadioButtonId()) {
                         case R.id.rb_mascle:
-                            b.putString("Sexe", "Mascle");
+                            String sm = getResources().getString(R.string.SexeMasc);
+                            b.putString("Sexe", sm);
                             break;
                         case R.id.rb_femella:
-                            b.putString("Sexe", "Femella");
+                            String sf = getResources().getString(R.string.SexeFem);
+                            b.putString("Sexe", sf);
                             break;
                         default:
-                            b.putString("Sexe", "Indefinit");
+                            String si = getResources().getString(R.string.SexeInd);
+                            b.putString("Sexe", si);
                     }
                     if (switch1.isChecked()) {
-                        b.putString("Carnet", "Tiene carnet de conducir");
+                        String msg = getResources().getString(R.string.CarnetSI);
+                        b.putString("Carnet", msg);
                     } else {
-                        b.putString("Carnet", "No tiene carnet de conducir");
+                        String msg1 = getResources().getString(R.string.CarnetNO);
+                        b.putString("Carnet", msg1);
                     }
                     b.putFloat("Valor", ratingBar.getRating());
                     b.putFloat("Valor2", seekBar.getProgress());
                     i.putExtras(b);  //Afegisc l'objecte Bundle a l'Intent
                     startActivityForResult(i, SUBACTIVITY_1); // Cride al subactivity, amb l'Intent (que conté el Bundle)
                 } else {
-                    Toast.makeText(getApplicationContext(), "Revisa les dades. Ompli-les TOTES", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Revisa les dades. Ompli-les TOTES", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error), Toast.LENGTH_LONG).show();
                 }
             }
         });
+        cogerValoracion();
     }
 
 
@@ -90,6 +101,28 @@ public class Principal extends Activity {
             }
         }
 
+    }
+
+    public void cogerValoracion(){
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                String mensaje;
+                int puntos = seekBar.getProgress();
+                mensaje = "" + puntos;
+                valoracio.setText(mensaje);
+            }
+        });
     }
 
 
@@ -108,24 +141,37 @@ public class Principal extends Activity {
 
         if(resultCode==RESULT_OK){
             String missatge="";
-
             Bundle b = data.getExtras();
             int edat = b.getInt("Edat");
-            if (edat<18) missatge=new String("Estas fet un xaval!!!");
-            if ((edat>=18)&&(edat<25))  missatge=new String("Campeon!!");
-            if (edat>=25)  missatge=new String("ai,ai,ai");
+            //if (edat<18) missatge=new String("Estas fet un xaval!!!");
+            if (edat<18) missatge=new String(getResources().getString(R.string.FetXaval));
+            //if ((edat>=18)&&(edat<25))  missatge=new String("Campeon!!");
+            if ((edat>=18)&&(edat<25))  missatge=new String(getResources().getString(R.string.FetCamp));
+            //if (edat>=25)  missatge=new String("ai,ai,ai");
+            if (edat>=25)  missatge=new String(getResources().getString(R.string.FetAi));
             boolean conducir = b.getBoolean("Carnet");
+
+            /**
+             String sm = getResources().getString(R.string.FetXaval);
+             b.putString("Sexe", sm);
+             **/
+
             //Posem
             dadesRebudes.setText(missatge.toString());
             desactivaComponents();
         }else{
-            Toast.makeText(getApplicationContext(),"Error en el SubActivity 1",Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),"Error en el SubActivity 1",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.ErrorSub1),Toast.LENGTH_LONG).show();
         }
     }
 
     public void desactivaComponents(){
         nom.setEnabled(false);  // desactivem el camp nom
         radioGroupSexe.setEnabled(false);
+        switch1.setEnabled(false);
+        ratingBar.setEnabled(false);
+        seekBar.setEnabled(false);
+        valoracio.setEnabled(false);
         //REcorreguem TOTS els radiobutton del radioGroup, per a anar desactivant-los un a un
         for (int i=0;i<radioGroupSexe.getChildCount();i++){
             radioGroupSexe.getChildAt(i).setEnabled(false);

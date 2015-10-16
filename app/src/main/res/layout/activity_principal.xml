@@ -74,7 +74,16 @@
         android:layout_toStartOf="@+id/b_enviaDades"
         android:max="100"
         android:indeterminate="false"
-        android:layout_alignEnd="@+id/et_nom" />
+        android:layout_alignEnd="@+id/switch1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tv_numeracio"
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignStart="@+id/tv_dades_rebudes"
+        android:layout_alignEnd="@+id/ratingBar" />
 
     <Button
         android:layout_width="wrap_content"

@@ -4,4 +4,26 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_sub">subActivity</string>
+
+    //Principal
+    <string name="CarnetSI">Tiene carnet de conducir</string>
+    <string name="CarnetNO">No tiene carnet de conducir</string>
+    <string name="SexeMasc">Mascle</string>
+    <string name="SexeFem">Femella</string>
+    <string name="SexeInd">Indefinit</string>
+    <string name="FetXaval">Estas fet un xaval!!!</string>
+    <string name="FetCamp">Campeon!!</string>
+    <string name="FetAi">ai,ai,ai</string>
+    <string name="Error">Revisa les dades. Ompli-les TOTES</string>
+    <string name="ErrorSub1">Revisa les dades. Ompli-les TOTES</string>
+
+    //subActivity
+    <string name="bienvMasc">Hola en </string>
+    <string name="bienvFem">Hola na </string>
+    <string name="Indica">, indica'ns les següents dades: </string>
+
+
+
+    <string name="OmpliDades">Has d'omplir el camp edat!!</string>
+
 </resources>

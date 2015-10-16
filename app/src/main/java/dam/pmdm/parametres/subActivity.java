@@ -52,10 +52,20 @@ public class subActivity extends Activity {
             nom = b.getString("Nom");
             sexe = b.getString("Sexe");
             if(sexe.compareTo("Mascle")==0){
-                missatge="Hola en "+nom+", indica'ns les següents dades: \n";
+                String smNom = getResources().getString(R.string.bienvMasc);
+                String sIndicaD = getResources().getString(R.string.Indica);
+                missatge= smNom + nom + sIndicaD + "\n";
             }else{
-                missatge="Hola na "+nom+", indica'ns les següents dades: \n";
+                String sfNom = getResources().getString(R.string.bienvFem);
+                String sIndicaD = getResources().getString(R.string.Indica);
+                missatge= sfNom + nom + sIndicaD + "\n";
             }
+
+            /**
+             String sm = getResources().getString(R.string.FetXaval);
+             b.putString("Sexe", sm);
+             **/
+
             //Carnet SWITCH
             carnet = b.getString("Carnet");
             missatge = missatge + carnet + "\n";
@@ -76,7 +86,8 @@ public class subActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (edat.getText().length() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Has d'omplir el camp edat!!", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Has d'omplir el camp edat!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.OmpliDades), Toast.LENGTH_LONG).show();
                 } else {  //tot esta correcte
                     Intent i = getIntent();
                     i.putExtra("Edat", Integer.parseInt(edat.getText().toString()));  // Afegim un paràmetre més al bundle
